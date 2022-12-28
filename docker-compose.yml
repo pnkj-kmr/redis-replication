@@ -46,7 +46,7 @@ services:
     container_name: "sant1"
     image: redis:5.0.3
     ports:
-      - "26381:6379"
+      - "26381:26379"
     command: "redis-server /etc/redis/sentinel.conf --sentinel"
     volumes:
       - "./config/sentinel/1:/etc/redis"
@@ -64,7 +64,7 @@ services:
     container_name: "sant2"
     image: redis:5.0.3
     ports:
-      - "26382:6379"
+      - "26382:26379"
     command: "redis-server /etc/redis/sentinel.conf --sentinel"
     volumes:
       - "./config/sentinel/2:/etc/redis"
@@ -82,7 +82,7 @@ services:
     container_name: "sant3"
     image: redis:5.0.3
     ports:
-      - "26383:6379"
+      - "26383:26379"
     command: "redis-server /etc/redis/sentinel.conf --sentinel"
     volumes:
       - "./config/sentinel/3:/etc/redis"
