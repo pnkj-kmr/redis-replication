@@ -42,59 +42,59 @@ services:
       redis_cluster:
         ipv4_address: 172.20.0.4
 
-  # s1:
-  #   container_name: "sant1"
-  #   image: redis:6.2.6
-  #   ports:
-  #     - "26381:6379"
-  #   command: "redis-server /etc/redis/sentinel.conf --sentinel"
-  #   volumes:
-  #     - "./config/sentinel/1:/etc/redis"
-  #     - "./data/sentinel/1:/var/lib/redis"
-  #     - "./log/sentinel/1:/var/log/redis"
-  #   depends_on:
-  #     - "master"
-  #     - "slave1"
-  #     - "slave2"
-  #   networks:
-  #     redis_cluster:
-  #       ipv4_address: 172.20.0.101
+  s1:
+    container_name: "sant1"
+    image: redis:6.2.6
+    ports:
+      - "26381:6379"
+    command: "redis-server /etc/redis/sentinel.conf --sentinel"
+    volumes:
+      - "./config/sentinel/1:/etc/redis"
+      - "./data/sentinel/1:/var/lib/redis"
+      - "./log/sentinel/1:/var/log/redis"
+    depends_on:
+      - "master"
+      - "slave1"
+      - "slave2"
+    networks:
+      redis_cluster:
+        ipv4_address: 172.20.0.101
 
-  # s2:
-  #   container_name: "sant2"
-  #   image: redis:6.2.6
-  #   ports:
-  #     - "26382:6379"
-  #   command: "redis-server /etc/redis/sentinel.conf --sentinel"
-  #   volumes:
-  #     - "./config/sentinel/2:/etc/redis"
-  #     - "./data/sentinel/2:/var/lib/redis"
-  #     - "./log/sentinel/2:/var/log/redis"
-  #   depends_on:
-  #     - "master"
-  #     - "slave1"
-  #     - "slave2"
-  #   networks:
-  #     redis_cluster:
-  #       ipv4_address: 172.20.0.102
+  s2:
+    container_name: "sant2"
+    image: redis:6.2.6
+    ports:
+      - "26382:6379"
+    command: "redis-server /etc/redis/sentinel.conf --sentinel"
+    volumes:
+      - "./config/sentinel/2:/etc/redis"
+      - "./data/sentinel/2:/var/lib/redis"
+      - "./log/sentinel/2:/var/log/redis"
+    depends_on:
+      - "master"
+      - "slave1"
+      - "slave2"
+    networks:
+      redis_cluster:
+        ipv4_address: 172.20.0.102
 
-  # s3:
-  #   container_name: "sant3"
-  #   image: redis:6.2.6
-  #   ports:
-  #     - "26383:6379"
-  #   command: "redis-server /etc/redis/sentinel.conf --sentinel"
-  #   volumes:
-  #     - "./config/sentinel/3:/etc/redis"
-  #     - "./data/sentinel/3:/var/lib/redis"
-  #     - "./log/sentinel/3:/var/log/redis"
-  #   depends_on:
-  #     - "master"
-  #     - "slave1"
-  #     - "slave2"
-  #   networks:
-  #     redis_cluster:
-  #       ipv4_address: 172.20.0.103
+  s3:
+    container_name: "sant3"
+    image: redis:6.2.6
+    ports:
+      - "26383:6379"
+    command: "redis-server /etc/redis/sentinel.conf --sentinel"
+    volumes:
+      - "./config/sentinel/3:/etc/redis"
+      - "./data/sentinel/3:/var/lib/redis"
+      - "./log/sentinel/3:/var/log/redis"
+    depends_on:
+      - "master"
+      - "slave1"
+      - "slave2"
+    networks:
+      redis_cluster:
+        ipv4_address: 172.20.0.103
 
 networks:
   redis_cluster:
