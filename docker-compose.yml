@@ -10,6 +10,9 @@ services:
       - "./config/redis/master:/etc/redis"
       - "./data/redis/master:/var/lib/redis"
       - "./log/redis/master:/var/log/redis"
+    networks:
+      redis_cluster:
+        ipv4_address: 172.20.0.2
 
   slave1:
     container_name: "redis-s1"
@@ -21,6 +24,9 @@ services:
       - "./config/redis/slave-1:/etc/redis"
       - "./data/redis/slave-1:/var/lib/redis"
       - "./log/redis/slave-1:/var/log/redis"
+    networks:
+      redis_cluster:
+        ipv4_address: 172.20.0.3
 
   slave2:
     container_name: "redis-s2"
@@ -32,6 +38,9 @@ services:
       - "./config/redis/slave-2:/etc/redis"
       - "./data/redis/slave-2:/var/lib/redis"
       - "./log/redis/slave-2:/var/log/redis"
+    networks:
+      redis_cluster:
+        ipv4_address: 172.20.0.4
 
   s1:
     container_name: "sant1"
@@ -47,6 +56,9 @@ services:
       - "master"
       - "slave1"
       - "slave2"
+    networks:
+      redis_cluster:
+        ipv4_address: 172.20.0.101
 
   s2:
     container_name: "sant2"
@@ -62,6 +74,9 @@ services:
       - "master"
       - "slave1"
       - "slave2"
+    networks:
+      redis_cluster:
+        ipv4_address: 172.20.0.102
 
   s3:
     container_name: "sant3"
@@ -77,3 +92,13 @@ services:
       - "master"
       - "slave1"
       - "slave2"
+    networks:
+      redis_cluster:
+        ipv4_address: 172.20.0.102
+
+networks:
+  redis_cluster:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
