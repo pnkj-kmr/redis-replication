@@ -2,7 +2,7 @@ version: "3"
 services:
   master:
     container_name: "redis-m"
-    image: redis:5.0.3
+    image: redis:6.2.6
     ports:
       - "6379:6379"
     command: "redis-server /etc/redis/redis.conf"
@@ -16,7 +16,7 @@ services:
 
   slave1:
     container_name: "redis-s1"
-    image: redis:5.0.3
+    image: redis:6.2.6
     ports:
       - "6380:6379"
     command: "redis-server /etc/redis/redis.conf"
@@ -30,7 +30,7 @@ services:
 
   slave2:
     container_name: "redis-s2"
-    image: redis:5.0.3
+    image: redis:6.2.6
     ports:
       - "6381:6379"
     command: "redis-server /etc/redis/redis.conf"
@@ -44,7 +44,7 @@ services:
 
   s1:
     container_name: "sant1"
-    image: redis:5.0.3
+    image: redis:6.2.6
     ports:
       - "26381:6379"
     command: "redis-server /etc/redis/sentinel.conf --sentinel"
@@ -62,7 +62,7 @@ services:
 
   s2:
     container_name: "sant2"
-    image: redis:5.0.3
+    image: redis:6.2.6
     ports:
       - "26382:6379"
     command: "redis-server /etc/redis/sentinel.conf --sentinel"
@@ -80,7 +80,7 @@ services:
 
   s3:
     container_name: "sant3"
-    image: redis:5.0.3
+    image: redis:6.2.6
     ports:
       - "26383:6379"
     command: "redis-server /etc/redis/sentinel.conf --sentinel"

@@ -1,6 +1,6 @@
 # Redis Replication with Sentinel - High Availability
 
-_redis [5.0.3] | choose higher version if you like_
+_redis [6.2.6] | choose higher version if you like_
 
 ## redis sentinel - these setups help
 
