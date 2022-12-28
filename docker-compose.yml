@@ -94,7 +94,7 @@ services:
       - "slave2"
     networks:
       redis_cluster:
-        ipv4_address: 172.20.0.102
+        ipv4_address: 172.20.0.103
 
 networks:
   redis_cluster:
