@@ -1,0 +1,33 @@
+
+################
+# redis instance
+$redis-cli -h 127.0.0.1 -p 6379
+# To authenticate redis cli if requirepass is set
+127.0.0.1:6379>auth <password>
+# To check replication [HA] status in master or slave
+127.0.0.1:6379>info replication
+
+
+#########################
+# redis sentinel instance
+$redis-cli -h 127.0.0.1 -p 26379
+# To check master, slave and othere sentinel detail
+127.0.0.1:6379>sentinel masters
+# Check setup data with below keys
+    # 2) "mymaster"
+    # 3) "ip"
+    # 4) "172.18.0.3"
+    # ...
+    # 21) "down-after-milliseconds"
+    # 22) "5000"
+    # ...
+    # 31) "num-slaves"
+    # 32) "2"
+    # 33) "num-other-sentinels"
+    # 34) "2"
+    # 35) "quorum"
+    # 36) "2"
+    # 37) "failover-timeout"
+    # 38) "10000"
+    # 39) "parallel-syncs"
+    # 40) "1"

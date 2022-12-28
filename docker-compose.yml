@@ -1,0 +1,79 @@
+version: "3"
+services:
+  master:
+    container_name: "redis-m"
+    image: redis:5.0.3
+    ports:
+      - "6379:6379"
+    command: "redis-server /etc/redis/redis.conf"
+    volumes:
+      - "./config/redis/master:/etc/redis"
+      - "./data/redis/master:/var/lib/redis"
+      - "./log/redis/master:/var/log/redis"
+
+  slave1:
+    container_name: "redis-s1"
+    image: redis:5.0.3
+    ports:
+      - "6380:6379"
+    command: "redis-server /etc/redis/redis.conf"
+    volumes:
+      - "./config/redis/slave-1:/etc/redis"
+      - "./data/redis/slave-1:/var/lib/redis"
+      - "./log/redis/slave-1:/var/log/redis"
+
+  slave2:
+    container_name: "redis-s2"
+    image: redis:5.0.3
+    ports:
+      - "6381:6379"
+    command: "redis-server /etc/redis/redis.conf"
+    volumes:
+      - "./config/redis/slave-2:/etc/redis"
+      - "./data/redis/slave-2:/var/lib/redis"
+      - "./log/redis/slave-2:/var/log/redis"
+
+  s1:
+    container_name: "sant1"
+    image: redis:5.0.3
+    ports:
+      - "26381:6379"
+    command: "redis-server /etc/redis/sentinel.conf --sentinel"
+    volumes:
+      - "./config/sentinel/1:/etc/redis"
+      - "./data/sentinel/1:/var/lib/redis"
+      - "./log/sentinel/1:/var/log/redis"
+    depends_on:
+      - "master"
+      - "slave1"
+      - "slave2"
+
+  s2:
+    container_name: "sant2"
+    image: redis:5.0.3
+    ports:
+      - "26382:6379"
+    command: "redis-server /etc/redis/sentinel.conf --sentinel"
+    volumes:
+      - "./config/sentinel/2:/etc/redis"
+      - "./data/sentinel/2:/var/lib/redis"
+      - "./log/sentinel/2:/var/log/redis"
+    depends_on:
+      - "master"
+      - "slave1"
+      - "slave2"
+
+  s3:
+    container_name: "sant3"
+    image: redis:5.0.3
+    ports:
+      - "26383:6379"
+    command: "redis-server /etc/redis/sentinel.conf --sentinel"
+    volumes:
+      - "./config/sentinel/3:/etc/redis"
+      - "./data/sentinel/3:/var/lib/redis"
+      - "./log/sentinel/3:/var/log/redis"
+    depends_on:
+      - "master"
+      - "slave1"
+      - "slave2"

@@ -1,0 +1,69 @@
+
+# Linux based system redis[5.0.3] High Availability setup
+
+
+
+#############################################################
+#
+#   Infraon redis-master configuration
+#   redis 5.0.3
+#   
+#   Modify the below variables only
+#   /etc/redis.conf
+
+bind 127.0.0.1 <ip_or_host>
+appendonly yes
+appendfsync everysec
+requirepass Infra0n
+
+
+
+
+#############################################################
+#
+#   Infraon redis-slave configuration
+#   redis 5.0.3
+#
+#   Modify the below variables only
+#   /etc/redis.conf
+
+bind 127.0.0.1 <ip_or_host>
+appendonly yes
+appendfsync everysec
+requirepass Infra0n
+# additional for slave
+replicaof 10.50.203.33 6379     # master redis ip #replicaof nr-ma-mongodb1.stllab.in 6379
+masterauth Infra0n
+replica-priority 10             # less than 100 and different
+
+
+#############################################################
+#
+#   Infraon redis-sentinel configuration
+#   redis 5.0.3
+#
+#   Modify the below variables only
+#   /etc/redis-sentinel.conf
+
+# bind 127.0.0.1 10.50.203.33
+# port 26379
+# daemonize no
+# pidfile "/var/run/redis-sentinel.pid"
+# logfile "/var/log/redis/sentinel.log"
+dir "/var/lib/redis/sentinel"
+sentinel monitor mymaster <master_ip_or_host> 6379 2
+# sentinel auth-pass mymaster Infra0n
+sentinel down-after-milliseconds mymaster 10000
+sentinel parallel-syncs mymaster 1
+sentinel failover-timeout mymaster 20000
+
+
+# ### HELPER sentinel startup
+# mkdir -p /var/lib/redis/sentinel
+# chown -R redis:redis /var/lib/redis/sentinel/
+# systemctl enable redis-sentinel
+# systemctl start redis-sentinel
+# systemctl status redis-sentinel
+# systemctl restart redis redis-sentinel
+# systemctl status redis
+# systemctl status redis-sentinel
