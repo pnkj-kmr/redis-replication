@@ -57,8 +57,7 @@ services:
       - "slave1"
       - "slave2"
     networks:
-      redis_cluster:
-        ipv4_address: 172.20.0.101
+      - redis_cluster
 
   s2:
     container_name: "sant2"
@@ -75,8 +74,7 @@ services:
       - "slave1"
       - "slave2"
     networks:
-      redis_cluster:
-        ipv4_address: 172.20.0.102
+      - redis_cluster
 
   s3:
     container_name: "sant3"
@@ -93,8 +91,7 @@ services:
       - "slave1"
       - "slave2"
     networks:
-      redis_cluster:
-        ipv4_address: 172.20.0.103
+      - redis_cluster
 
 networks:
   redis_cluster:
