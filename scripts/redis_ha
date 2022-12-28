@@ -5,7 +5,7 @@
 
 #############################################################
 #
-#   Infraon redis-master configuration
+#   redis-master configuration
 #   redis 5.0.3
 #   
 #   Modify the below variables only
@@ -14,14 +14,14 @@
 bind 127.0.0.1 <ip_or_host>
 appendonly yes
 appendfsync everysec
-requirepass Infra0n
+requirepass password1
 
 
 
 
 #############################################################
 #
-#   Infraon redis-slave configuration
+#   redis-slave configuration
 #   redis 5.0.3
 #
 #   Modify the below variables only
@@ -30,16 +30,16 @@ requirepass Infra0n
 bind 127.0.0.1 <ip_or_host>
 appendonly yes
 appendfsync everysec
-requirepass Infra0n
+requirepass password1
 # additional for slave
-replicaof 10.50.203.33 6379     # master redis ip #replicaof nr-ma-mongodb1.stllab.in 6379
-masterauth Infra0n
+replicaof 10.50.203.33 6379     # master redis ip #replicaof  6379
+masterauth password1
 replica-priority 10             # less than 100 and different
 
 
 #############################################################
 #
-#   Infraon redis-sentinel configuration
+#   redis-sentinel configuration
 #   redis 5.0.3
 #
 #   Modify the below variables only
@@ -52,7 +52,7 @@ replica-priority 10             # less than 100 and different
 # logfile "/var/log/redis/sentinel.log"
 dir "/var/lib/redis/sentinel"
 sentinel monitor mymaster <master_ip_or_host> 6379 2
-# sentinel auth-pass mymaster Infra0n
+# sentinel auth-pass mymaster password1
 sentinel down-after-milliseconds mymaster 10000
 sentinel parallel-syncs mymaster 1
 sentinel failover-timeout mymaster 20000
