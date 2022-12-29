@@ -19,3 +19,9 @@ s2:
 s3:
 	docker exec -it sant3 redis-cli -p 6379
 
+rm:
+	docker rm -f redis-m redis-s1 redis-s2 sant1 sant2 sant3
+
+d:
+	docker stop redis-m
+

@@ -50,7 +50,7 @@ services:
     command: "redis-server /etc/redis/sentinel.conf --sentinel"
     volumes:
       - "./config/sentinel/1:/etc/redis"
-      - "./data/sentinel/1:/var/lib/redis"
+      - "./data/sentinel/1:/tmp"
       - "./log/sentinel/1:/var/log/redis"
     depends_on:
       - "master"
@@ -67,7 +67,7 @@ services:
     command: "redis-server /etc/redis/sentinel.conf --sentinel"
     volumes:
       - "./config/sentinel/2:/etc/redis"
-      - "./data/sentinel/2:/var/lib/redis"
+      - "./data/sentinel/2:/tmp"
       - "./log/sentinel/2:/var/log/redis"
     depends_on:
       - "master"
@@ -84,7 +84,7 @@ services:
     command: "redis-server /etc/redis/sentinel.conf --sentinel"
     volumes:
       - "./config/sentinel/3:/etc/redis"
-      - "./data/sentinel/3:/var/lib/redis"
+      - "./data/sentinel/3:/tmp"
       - "./log/sentinel/3:/var/log/redis"
     depends_on:
       - "master"
