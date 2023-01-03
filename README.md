@@ -114,7 +114,7 @@ _now, restart the service by running_
 systemctl restart redis
 ```
 
-_**REPEAT** the step in both slave **hostname3** node_
+_**REPEAT** the step in slave **hostname3** node as well_
 
 _after completing the master-slave configuration redis replications is ready, to verify, login into redis master as_
 
