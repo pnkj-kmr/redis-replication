@@ -1,6 +1,5 @@
-infraon.txt
 temp
 *.rdb
 *.log*
 *aof
-scripts/redis.png
+

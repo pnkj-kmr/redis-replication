@@ -5,7 +5,7 @@ _redis [6.2.6] | choose higher version if you like_
 ## redis sentinel - these setups help
 
 1. Redis Installation [skip if already installed]
-2. Hostname Resolution Setup [or we can skip this by IP address]
+2. Hostname Resolution [or we can skip this by IP address]
 3. Redis Master-Slave Replica
 4. Redis Sentinel - auto failover
 
@@ -38,7 +38,7 @@ systemctl status redis
 
 _**REPEAT** the step in Each & Every machine_
 
-### 2. Hostname Resolution Setup
+### 2. Hostname Resolution
 
 ---
 
@@ -72,7 +72,7 @@ _Modify below configuration variable for master node, we are refering hostname1 
 
 ```
 # ...
-bind 127.0.0.1 hostname1
+bind 127.0.0.1 192.168.1.101
 # ...
 appendonly yes
 # ...
@@ -96,7 +96,7 @@ _**NOTE:** only two additional parameter are there in slave node - **replicaof**
 
 ```
 # ...
-bind 127.0.0.1 hostname2
+bind 127.0.0.1 192.168.1.102
 # ...
 appendonly yes
 # ...
@@ -114,7 +114,7 @@ _now, restart the service by running_
 systemctl restart redis
 ```
 
-_**REPEAT** the step in both slave node_
+_**REPEAT** the step in both slave **hostname3** node_
 
 _after completing the master-slave configuration redis replications is ready, to verify, login into redis master as_
 
@@ -146,7 +146,7 @@ _[linux](https://redis.io/docs/management/config/): /etc/redis-sentinel.conf_
 #
 port 26379
 # ...
-dir "/var/lib/redis/sentinel"                   # modify as you like
+# dir "/tmp"                   # modify as you like
 # ...
 sentinel monitor mymaster hostname1 6379 2      # master redis configuration
 # ...
