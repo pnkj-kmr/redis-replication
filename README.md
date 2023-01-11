@@ -1,6 +1,6 @@
 # Redis Replication with Sentinel - High Availability
 
-_redis [6.2.6] | choose higher version if you like_
+_redis [7.0.7] | choose higher version if you like_
 
 ## redis sentinel - these setups help
 
@@ -19,6 +19,14 @@ _Here we are refering the linux machine to install redis. To install [refer here
 
 ```
 yum -y install redis
+```
+
+_Or use [install_redis_stable.sh](./install_redis_stable.sh) file by following cmds to install_
+
+```
+# MODIFY THE IPADDRESS AS PER YOUR MACHINE
+chmod +x install_redis_stable.sh
+./install_redis_stable.sh
 ```
 
 _if linux machine has firewall service running, we need to enable redis ports by running below command_
@@ -71,13 +79,14 @@ _[linux](https://redis.io/docs/management/config/): /etc/redis.conf_
 _Modify below configuration variable for master node, we are refering hostname1 as master node_
 
 ```
-# ...
-bind 127.0.0.1 192.168.1.101
-# ...
+bind 127.0.0.1 hostname1
+dir "/var/lib/redis"
 appendonly yes
-# ...
 appendfsync everysec
-# ...
+requirepass "test123"
+masterauth "test123"
+replica-announce-ip hostname1
+replica-priority 80
 ```
 
 _now, restart the service by running_
@@ -95,17 +104,16 @@ _Modify below configuration variable for slave node, we are refering hostname2 a
 _**NOTE:** only two additional parameter are there in slave node - **replicaof** and **replica-priority**, parameter replica-priority should be set between 1 < x < 100 because master node has priority=100 as default_
 
 ```
-# ...
-bind 127.0.0.1 192.168.1.102
-# ...
+bind 127.0.0.1 hostname2
+dir "/var/lib/redis"
 appendonly yes
-# ...
 appendfsync everysec
-# ...
-replicaof hostname1 6379    # master node hostname(ip) and port
-# ...
-replica-priority 90
-# ...
+requirepass "test123"
+masterauth "test123"
+replica-announce-ip hostname2
+replica-priority 95
+# IN CASE OF SLAVE NODE
+replicaof hostname1 6379
 ```
 
 _now, restart the service by running_
@@ -143,21 +151,14 @@ _Modify below configuration variable for sentinel node, we are refering hostname
 _[linux](https://redis.io/docs/management/config/): /etc/redis-sentinel.conf_
 
 ```
-#
 port 26379
-# ...
-# dir "/tmp"                   # modify as you like
-# ...
-sentinel monitor mymaster hostname1 6379 2      # master redis configuration
-# ...
-# sentinel auth-pass mymaster password1
-# ...
+dir "/tmp"                      # modify as you like
+sentinel resolve-hostnames yes
+sentinel announce-hostnames yes
+sentinel monitor mymaster hostname1 6379 2
+sentinel auth-pass mymaster test123
 sentinel down-after-milliseconds mymaster 10000
-# ...
-sentinel parallel-syncs mymaster 1
-# ...
 sentinel failover-timeout mymaster 20000
-# ...
 ```
 
 _now, restart the service by running_
